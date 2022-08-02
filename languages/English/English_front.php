@@ -62,4 +62,4 @@ define("LAN_SUR_A_03","It was ok");
 define("LAN_SUR_A_04","Little bit dissatisfied");
 define("LAN_SUR_A_05","Very bad!");
 
- 
+define("LAN_SUR_SLOGAN", "Your feedback is important for us - it allows us to continually improve and be a better partner <span>for our candidates</span>.");
