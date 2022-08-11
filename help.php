@@ -1,7 +1,34 @@
 <?php
 e107::lan('survey',true, true);
 
-$text = "
+
+
+if(e_PAGE == "admin_configv1.php") {
+$adminMenu = array(
+	'main/list' => array('caption' => ADLAN_SUR_MAINCONF, 'perm' => 'P', 'uri'=> 'admin_config.php?mode=main&action=list'),
+	'surveys' => array('caption' => 'Surveys', 'perm' => 'P', 'uri' => 'admin_configv1.php'),
+	'message/list' => array('caption' => 'Defined messages', 'perm' => 'P', 'uri'=> 'admin_config.php?mode=message&action=list'),
+	'message/create' => array('caption' => 'Add message', 'perm' =>'P', 'uri' => 'admin_config.php?mode=message&action=create'),
+);
+ 
+
+	$var = array();
+
+	foreach ($adminMenu as $key => $val)
+	{
+		$var[$key]['text'] = $val['caption'];
+		$var[$key]['link'] =  $val['uri'];
+		 
+	}
+
+$caption = "<span>Surveys</span>";
+
+$text=	e107::getNav()->admin($caption, $_GET['mode'], $var);
+}
+
+//survey_adminArea->renderMenu();
+
+$text .= "
 <b>&raquo;</b> <u>".ADLAN_SUR10."</u>
 ".ADLAN_SUR40."
 <br /><br />

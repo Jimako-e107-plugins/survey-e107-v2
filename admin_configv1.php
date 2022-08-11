@@ -20,6 +20,8 @@ require_once(e_ADMIN."auth.php");
 require_once(e_HANDLER."form_handler.php");
 require_once(e_HANDLER."userclass_class.php");
 
+
+
 e107::lan('survey',true, true);
 
 foreach($_POST as $k => $v){
@@ -39,7 +41,7 @@ for($i = 1;$i<=20;$i++){
 $message="";
 function survey_erase($survey_num){
 	global $sql, $message;
-	if($sql -> db_Select("survey_results","*","results_survey_id={$survey_num}")){
+	if($sql -> select("survey_results","*","results_survey_id={$survey_num}")){
 	}
 }
 
@@ -58,8 +60,8 @@ class myform extends form {
 
 if($_POST['delete']){
 	if($_POST['tick']){
-		$sql -> db_Delete("survey","survey_id='{$_POST['existing']}' ");
-		$sql -> db_Delete("survey_results","results_survey_id='{$_POST['existing']}' ");
+		$sql -> delete("survey","survey_id='{$_POST['existing']}' ");
+		$sql -> delete("survey_results","results_survey_id='{$_POST['existing']}' ");
 		$message = ADLAN_SUR2;
 	} else {
 		$message = ADLAN_SUR3;
@@ -67,8 +69,8 @@ if($_POST['delete']){
 }
 
 if($_POST['createcopy']){
-	if($sql -> db_Select("survey","*","survey_id='{$_POST['existing']}' ")){
-		$row = $sql -> db_Fetch();
+	if($sql -> select("survey","*","survey_id='{$_POST['existing']}' ")){
+		$row = $sql -> fetch();
 		extract($row); 
       $survey_url = eHelper::title2sef($survey_name);
       $insert = array(
@@ -137,7 +139,7 @@ if($_POST['add']){
   //  $sql -> db_Insert("survey","0,'{$survey_name}',
   //  {$survey_class},{$survey_once},{$survey_viewclass},{$survey_editclass},'{$survey_mailto}',{$survey_forum},{$survey_save_results},'','','{$survey_message}','{$survey_submit_message}',0 ");
 		e107::getDb()->select("survey","*","survey_name ='{$survey_name}'");
-		$row = $sql -> db_Fetch();
+		$row = $sql -> fetch();
 		$_POST['existing']=$row['survey_id'];
 		$_POST['edit']=1;
 	}
@@ -192,7 +194,7 @@ if($_POST['update'] || isset($moveup) || isset($movedown)){
 	if($_POST['field_text'][$_POST['newfield']]){
 		$incr=", survey_lastfnum=survey_lastfnum+1 ";
 	}
-	$sql -> db_Update("survey",$parms.$incr." WHERE survey_id={$_POST['existing']}");
+	$sql -> update("survey",$parms.$incr." WHERE survey_id={$_POST['existing']}");
 	unset($fields);
 	$_POST['edit']=$_POST['existing'];
 
@@ -206,9 +208,9 @@ function survey_existing_dropdown($name,$cur_survey){
 	$sql2 = new db;
 	$f = new myform;
 	$ret = "";
-	if($sql2 -> db_Select("survey") > 0){
+	if($sql2 -> select("survey") > 0){
 		$ret .= $f -> form_select_open($name);
-		while($row = $sql2 -> db_Fetch()){
+		while($row = $sql2 -> fetch()){
 			extract($row);
 			$sel = ($cur_survey == $survey_id) ? 1 : 0 ;
 			$ret .= $f -> form_option($survey_name,$sel,$survey_id);
@@ -245,11 +247,11 @@ if($survey_dropdown){
 }
 
 $text .= "</td></tr></table>".$f -> form_close()."</div>";
-$ns -> tablerender(ADLAN_SUR9,$text);
+e107::getRender() -> tablerender(ADLAN_SUR9,$text);
 
 if($_POST['create'] || $_POST['edit']){
-	$sql -> db_Select("forum","*","forum_parent != 0");
-	while($row = $sql -> db_Fetch()){
+	$sql -> select("forum","*","forum_parent != 0");
+	while($row = $sql -> fetch()){
 		extract($row);
 		$forumList[$forum_id]=$forum_name;
 	}
@@ -260,8 +262,8 @@ if($_POST['create'] || $_POST['edit']){
 		$survey_save_results=0;
 	}
 	if($_POST['edit']){
-		$sql -> db_Select("survey","*","survey_id =".intval($_POST['existing']));
-		$row = $sql -> db_Fetch();
+		$sql -> select("survey","*","survey_id =".intval($_POST['existing']));
+		$row = $sql -> fetch();
 		extract($row);
 	}
 	$text="<div style='text-align:center;'>".
@@ -401,4 +403,3 @@ if($_POST['create'] || $_POST['edit']){
 	exit;
 }
 require_once(e_ADMIN."footer.php");
-?>

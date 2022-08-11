@@ -1,13 +1,13 @@
 <?php
-require_once(e_HANDLER."form_handler.php");
-e107::plugLan('survey', e_LANGUAGE.'_front');
+require_once(e_HANDLER . "form_handler.php");
+e107::plugLan('survey', e_LANGUAGE . '_front');
 
 class myform extends form
 {
 	function form_select($form_name, $form_options, $form_value)
 	{
-		$ret = "\n<select name='".$form_name."' class='tbox form-control'>";
-		foreach($form_options as $o)
+		$ret = "\n<select name='" . $form_name . "' class='tbox form-control'>";
+		foreach ($form_options as $o)
 		{
 			$sel = ($o == $form_value) ? " SELECTED" : "";
 			$ret .= "\n<option {$sel}>{$o}</selected>";
@@ -19,113 +19,159 @@ class myform extends form
 
 function show_form_question($field)
 {
-	global $sql, $ns, $tell_required,$_res,$survey_class,$error_text;
+	global $sql, $ns, $tell_required, $_res, $survey_class, $error_text;
 	$fn = $field['field_number'];
-	if($field['field_req'])
+	if ($field['field_req'])
 	{
-		$ret.="* ";
+		$ret = "* ";
 	}
 	$ret .= $field['field_text'];
-	if($tell_required[$fn]){$ret .= "<br /><div style='color:red;'>".LAN_SUR3."</div>";}
-	if($error_text[$fn]){$ret .= "<br /><div style='color:red;'>{$error_text[$fn]}</div>";}
+	if ($tell_required[$fn])
+	{
+		$ret .= "<br /><div style='color:red;'>" . LAN_SUR3 . "</div>";
+	}
+	if ($error_text[$fn])
+	{
+		$ret .= "<br /><div style='color:red;'>{$error_text[$fn]}</div>";
+	}
 	return $ret;
 }
 
 function show_form_field($field)
 {
-	global $sql, $ns, $tp, $tell_required,$_res,$survey_class,$style, $translated_strings;
+	global $sql, $ns, $tp, $tell_required, $_res, $survey_class, $style, $translated_strings;
 
 	$frm = new myform;
 	$fn = $field['field_number'];
-	switch($field['field_type'])
+	$ret = '';
+	switch ($field['field_type'])
 	{
 		case 1:  // text
 			list($size, $maxlength) = explode("~", $field['field_choices']);
-			$ret .= $frm->form_text("results[".$fn."]", $size, $_res[$fn], $maxlength);
+			$ret .= $frm->form_text("results[" . $fn . "]", $size, $_res[$fn], $maxlength);
 			break;
-			
+
 		case 2: // textarea
-			list($cols, $rows) = explode("~", $field['field_choices']);  
-      $ret .= e107::getForm()->textarea("results[".$fn."]", $_res[$fn], $cols, $rows);
+			list($cols, $rows) = explode("~", $field['field_choices']);
+			$ret .= e107::getForm()->textarea("results[" . $fn . "]", $_res[$fn], $cols, $rows);
 			//$ret .= $frm->form_textarea("results[".$fn."]", $cols, $rows, $_res[$fn]);    
 			break;
 
 		case 3:  //checkbox
 			$options = explode("~", $field['field_choices']);
 			$checked_vals = unserialize($_res[$fn]);
-			foreach($checked_vals as $k => $v)
+			foreach ($checked_vals as $k => $v)
 			{
 				$checked_vals[$k] = trim($v);
 			}
-			if(deftrue('BOOTSTRAP')) { $ret .='<div class="checkbox">';} 
-			foreach($options as $o)
+			if (deftrue('BOOTSTRAP'))
+			{
+				$ret .= '<div class="checkbox">';
+			}
+			foreach ($options as $o)
 			{
 				$o = $tp->simpleParse($o, $translated_strings);
 				$ch = (in_array(trim($o), $checked_vals)) ? 1 : 0;
- 
-				if(deftrue('BOOTSTRAP')) { $ret .='<label>';	}  
+
+				if (deftrue('BOOTSTRAP'))
+				{
+					$ret .= '<label>';
+				}
 				//<input type="checkbox"><span class="checkbox-material"><span class="check"></span></span> 
-				$ret .=  $frm->form_checkbox("results[".$fn."][]", $o, $ch)."&nbsp;".$o." ";
-				if(deftrue('BOOTSTRAP')) { $ret .='</label></br>';	}
+				$ret .=  $frm->form_checkbox("results[" . $fn . "][]", $o, $ch) . "&nbsp;" . $o . " ";
+				if (deftrue('BOOTSTRAP'))
+				{
+					$ret .= '</label></br>';
+				}
 			}
-			if(deftrue('BOOTSTRAP')) { $ret .='</div>';	}
+			if (deftrue('BOOTSTRAP'))
+			{
+				$ret .= '</div>';
+			}
 			break;
 
 		case 4:  //radio
-			$options = explode("~", $field['field_choices']);  
-			if(deftrue('BOOTSTRAP')) { $ret .='<div class="radio">';}  
-			foreach($options as $o)
+			$options = explode("~", $field['field_choices']);
+			if (deftrue('BOOTSTRAP'))
 			{
-			  $o = $tp->simpleParse($o, $translated_strings);   
+				$ret .= '<div class="radio">';
+			}
+			foreach ($options as $o)
+			{
+				$o = $tp->simpleParse($o, $translated_strings);
 				$o1 = $tp->toHTML($o, false, 'TITLE');
-			  $o1 = $tp->replaceConstants($o1);
-			  $o = $tp->toText($o, false, 'TITLE');
+				$o1 = $tp->replaceConstants($o1);
+				$o = $tp->toText($o, false, 'TITLE');
 				$ch = ($_res[$fn] == $o) ? 1 : 0;
-				if(deftrue('BOOTSTRAP')) { $ret .='<label>';	}  
-				$ret .= e107::getForm()->radio("results[".$fn."]", $o, $ch);				
-				$ret .= $o1;  
-				if(deftrue('BOOTSTRAP')) { $ret .='</label>';	}
+				if (deftrue('BOOTSTRAP'))
+				{
+					$ret .= '<label>';
+				}
+				$ret .= e107::getForm()->radio("results[" . $fn . "]", $o, $ch);
+				$ret .= $o1;
+				if (deftrue('BOOTSTRAP'))
+				{
+					$ret .= '</label>';
+				}
 				$ret .= "<br />";
 			}
-			if(deftrue('BOOTSTRAP')) { $ret .='</div>';	}
+			if (deftrue('BOOTSTRAP'))
+			{
+				$ret .= '</div>';
+			}
 			break;
 		case 13:  //inline radio
-			$options = explode("~", $field['field_choices']);  
-			if(deftrue('BOOTSTRAP')) { $ret .='<div class="radio">';} 
-			foreach($options as $o)
+			$options = explode("~", $field['field_choices']);
+			if (deftrue('BOOTSTRAP'))
 			{
-			  $o = $tp->simpleParse($o, $translated_strings);
-				$o1 = $tp->toHTML($o, false, 'TITLE');
-			  $o1 = $tp->replaceConstants($o1);
-			  $o = $tp->toText($o, false, 'TITLE');
-				$ch = ($_res[$fn] == $o) ? 1 : 0;
-				if(deftrue('BOOTSTRAP')) { $ret .='<label>';	}   
-			  //	$ret .= e107::getForm()->radio("results[".$fn."]", $o, $ch)."&nbsp;".$o1."<br />";
-        $ret .= e107::getForm()->radio("results[".$fn."]", $o, $ch)  ;
-        $ret .= "&nbsp;".$o1; 
-        if(deftrue('BOOTSTRAP')) { $ret .='</label>';	}
+				$ret .= '<div class="radio">';
 			}
-			if(deftrue('BOOTSTRAP')) { $ret .='</div>';	}		
-			break;  
+			foreach ($options as $o)
+			{
+				$o = $tp->simpleParse($o, $translated_strings);
+				$o1 = $tp->toHTML($o, false, 'TITLE');
+				$o1 = $tp->replaceConstants($o1);
+				$o = $tp->toText($o, false, 'TITLE');
+				$ch = ($_res[$fn] == $o) ? 1 : 0;
+				if (deftrue('BOOTSTRAP'))
+				{
+					$ret .= '<label>';
+				}
+				//	$ret .= e107::getForm()->radio("results[".$fn."]", $o, $ch)."&nbsp;".$o1."<br />";
+				$ret .= e107::getForm()->radio("results[" . $fn . "]", $o, $ch);
+				$ret .= "&nbsp;" . $o1;
+				if (deftrue('BOOTSTRAP'))
+				{
+					$ret .= '</label>';
+				}
+			}
+			if (deftrue('BOOTSTRAP'))
+			{
+				$ret .= '</div>';
+			}
+			break;
 
 		case 5:  //dropdown
-			$options = explode("~", $field['field_choices']); 
+			$options = explode("~", $field['field_choices']);
 			$o = array();
 			$o[0] = "---";
-			foreach($options as $x)
+			foreach ($options as $x)
 			{
 				$o = $tp->simpleParse($o, $translated_strings);
 				$o[] = trim($x);
 			}
-			$ret .= $frm->form_select("results[".$fn."]", $o, $_res[$fn]);
+			$ret .= $frm->form_select("results[" . $fn . "]", $o, $_res[$fn]);
 			break;
 
 		case 6:  //separator
 			$options = explode("~", $field['field_choices']);
-			if($options[0] == "menu")
+			if ($options[0] == "menu")
 			{
 				$oldstyle = $style;
-				if($options[1] != ""){ $style = $options[1]; }
+				if ($options[1] != "")
+				{
+					$style = $options[1];
+				}
 				ob_end_flush();
 				ob_start();
 				$ns->tablerender($tp->toHTML($field['field_text']), "");
@@ -140,7 +186,7 @@ function show_form_field($field)
 			break;
 
 		case 7:  //date
-			if($field['field_choices'] == "dmy")
+			if ($field['field_choices'] == "dmy")
 			{
 				$fmt = "d/m/Y";
 				$calfmt = "dd/mm/y";
@@ -148,22 +194,22 @@ function show_form_field($field)
 			}
 			else
 			{
-					$fmt = "m/d/Y";
-					$calfmt = "mm/dd/y";
-					$calmsg = "mm/dd/yyyy";
+				$fmt = "m/d/Y";
+				$calfmt = "mm/dd/y";
+				$calmsg = "mm/dd/yyyy";
 			}
-			if($_res[$fn])
+			if ($_res[$fn])
 			{
 				$xdate = $_res[$fn];
 			}
 			$ret .= "
-			<input class='tbox' type='text' name='results[".$fn."]' id='date_".$fn."' value='".$xdate."' />
-			<input class='tbox' type='button' name='reset' value=' ... ' id='trigger_".$fn."' /> ".$calmsg."
+			<input class='tbox' type='text' name='results[" . $fn . "]' id='date_" . $fn . "' value='" . $xdate . "' />
+			<input class='tbox' type='button' name='reset' value=' ... ' id='trigger_" . $fn . "' /> " . $calmsg . "
 			<script type='text/javascript'>
 				Calendar.setup({
-				inputField     :    'date_".$fn."',
-				ifFormat       :    '".$calfmt."',
-				button         :    'trigger_".$fn."',
+				inputField     :    'date_" . $fn . "',
+				ifFormat       :    '" . $calfmt . "',
+				button         :    'trigger_" . $fn . "',
 				singleClick    :    true
 				});
 			</script>
@@ -171,56 +217,55 @@ function show_form_field($field)
 			break;
 
 		case 8:  //name
-			if($survey_class)
+			list($size, $maxlength) = explode("~", $field['field_choices']);
+			if ($survey_class)
 			{
-				$ret .= $frm->form_hidden("results[".$fn."]", USERNAME).USERNAME;
+				$ret .= $frm->form_hidden("results[" . $fn . "]", USERNAME) . USERNAME;
 			}
 			else
 			{
-				$ret .= $frm->form_text("results[".$fn."]", $size, $_res[$fn], $maxlength);
+				$ret .= $frm->form_text("results[" . $fn . "]", $size, $_res[$fn], $maxlength);
 			}
 			break;
 
 		case 10:  //email
 			list($size, $maxlength) = explode("~", $field['field_choices']);
-			$ret .= $frm->form_text("results[".$fn."]", $size, $_res[$fn], $maxlength);
+			$ret .= $frm->form_text("results[" . $fn . "]", $size, $_res[$fn], $maxlength);
 			break;
 
 		case 11:  // number
 
-		case 12:	 //emailto
+		case 12:  //emailto
 			list($size, $maxlength) = explode("~", $field['field_choices']);
-			$ret .= $frm->form_text("results[".$fn."]", $size, $_res[$fn], $maxlength);
+			$ret .= $frm->form_text("results[" . $fn . "]", $size, $_res[$fn], $maxlength);
 			break;
-			
+
 		case 14:	 //raty
-      $options = explode("~", $field['field_choices']); 
-      $key = array_search ($_res[$fn] + 1, $options);			
+			$options = explode("~", $field['field_choices']);
+			$key = array_search($_res[$fn] + 1, $options);
 			$key = $key + 1; // double check, raty starts with 1, not zero			       
-		  $result = "results[".$fn."]";
+			$result = "results[" . $fn . "]";
 			$hint =    $field['field_choices'];
 			$id = $fn;
-	    $path = e_JS_ABS."rate/img/";                                                        
+			$path = e_JS_ABS . "rate/img/";
 			$ret .=  "<div class='e-survey'  id='survey-{$id}' data-score='{$result}' ></div>";
-		  $js = "			 
-			 var hint = '{$hint}';
-	     var hintArray	= hint.split(',');
-	     
-	     var score 		= $(this).attr('data-score');
-			 $('#survey-{$id}').raty({ 
+			$js = "			 
+				var hint = '{$hint}';
+				var hintArray	= hint.split(',');
+				
+				var score 		= $(this).attr('data-score');
+			 	$('#survey-{$id}').raty({ 
 			 
-			 starType: 'img', 
-			 width: '500px', 
-			 path: '{$path}',
-			 hints		: hintArray,
-			 scoreName: '{$result}',
-			 score: '{$key}',
-			 });";
-			 
-		  $ret .= "<script>".$js."</script>"; 
-			break;			
+			 	starType: 'img', 
+			 	width: '500px', 
+			 	path: '{$path}',
+			 	hints		: hintArray,
+			 	scoreName: '{$result}',
+			 	score: '{$key}',
+			});";
+
+			e107::js("footer-inline", $js);
+			break;
 	}
 	return $ret;
 }
-
-?>
