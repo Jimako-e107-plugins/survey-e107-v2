@@ -5,7 +5,7 @@ e107 survey plugin by septor for V2
 
 This version is still working. I have no idea how I was able to fix it. Now going through code and updating it, removing custom code or doing it other way. In slowly steps because it can't break anything and it still must work. 
 
-* [Notes](https://github.com/Jimako-e107-plugins/survey-e107-v2/blob/main/NOTES.mkd)
+* [Notes](https://github.com/Jimako-e107-plugins/survey-e107-v2/blob/main/NOTES.md)
 
 
 
