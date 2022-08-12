@@ -20,7 +20,7 @@ survey_message1 text NOT NULL,
 survey_message2 text NOT NULL,
 survey_error1 text NOT NULL,
 survey_slogan text NOT NULL,
-survey_neededpar tinyint(1) NOT NULL DEFAULT '0',lastfnum
+survey_neededpar tinyint(1) NOT NULL DEFAULT '0',
 PRIMARY KEY (survey_id)
 ) ENGINE=MyISAM;
 
