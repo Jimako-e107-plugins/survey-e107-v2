@@ -3,15 +3,18 @@
 class survey
 {
 
+	static $survey_id = NULL;
 	static $survey_data = array();
+	static $template = array();
 
 	function __construct()
 	{
-		 
+		survey::$template   = e107::getTemplate('survey');
 	}
 
 	function get_data_by_id($id = NULL) {
 		$data = array();
+		$id = intval($id);
 		if($id > 0 ) {
 			$where = 'survey_id ="' . $id . '" LIMIT 1';
 			$data = e107::getDB()->retrieve('survey', "*", $where);
@@ -19,6 +22,7 @@ class survey
 			$data['survey_name'] = $this->parse_lans($data['survey_name']);
 			$data['survey_slogan'] = $this->parse_lans($data['survey_slogan']);
 
+			survey::$survey_id = $data['survey_id'];
 			survey::$survey_data = $data;
 		}
 		return $data;
@@ -33,6 +37,9 @@ class survey
 			$data = e107::getDB()->retrieve('survey', "*", $where);
 			$data['survey_name'] = $this->parse_lans($data['survey_name']);
 			$data['survey_slogan'] = $this->parse_lans($data['survey_slogan']);
+
+			survey::$survey_id = $data['survey_id'];
+			survey::$survey_data = $data;
 		}
 		return $data;
 	}
@@ -52,5 +59,43 @@ class survey
 		e107::meta('description', $description);
 		e107::meta('robots', 'noindex, follow');
 		e107::route('survey/index');
+	}
+
+	function show_survey() 
+	{
+		$this->survey_access_checks();
+
+		//print_a(survey::$survey_data);
+
+		$ret = '';
+		$snum = intval($snum);
+
+		if (survey::$survey_id > 0)
+		{
+			$title = survey::$survey_data['survey_name'];
+			$surveytemplate = varset(survey::$survey_data['survey_template']  , "view" );
+
+			e107::getRender()->tablerender($title, $ret, 'survey');
+
+		}	
+
+	}
+
+	function survey_access_checks() {
+
+		$title = survey::$survey_data['survey_name'];
+		if (!check_class(survey::$survey_data['survey_class']))
+		{
+			e107::getRender()->tablerender($title , "Error - ". LAN_SUR6);
+			return;
+		}
+		if (survey::$survey_data['survey_class'] != e_UC_PUBLIC && survey::$survey_data['survey_once'])
+		{
+			if (already_voted(survey::$survey_data['survey_user']))
+			{
+				e107::getRender()->tablerender($title, "Error - ", LAN_SUR2);
+				return;
+			}
+		}
 	}
 }

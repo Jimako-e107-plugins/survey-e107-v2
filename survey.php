@@ -261,7 +261,7 @@ function show_survey($snum)
 	{
 
 		// replace LAN strings	  
-		$title = $tp->simpleParse($row['survey_name'], $translated_strings);
+		$title = '';
 		$row['survey_slogan'] = $tp->simpleParse($row['survey_slogan'], $translated_strings);
 
 		// set correct template, for errors too
@@ -274,20 +274,7 @@ function show_survey($snum)
 		$array = ['survey_neededpar' => $row['survey_neededpar']];
 		$data = e107::getEvent()->trigger('survey_displayed', $array);
 
-		//		extract($row);
-		if (!check_class($row['survey_class']))
-		{
-			e107::getRender()->tablerender("Error - {$row['survey_name']}", LAN_SUR6);
-			return;
-		}
-		if ($row['survey_class'] != e_UC_PUBLIC && $row['survey_once'])
-		{
-			if (already_voted($row['survey_user']))
-			{
-				e107::getRender()->tablerender("Error - {$row['survey_name']}", LAN_SUR2);
-				return;
-			}
-		}
+	 
 
 		$fdata = unserialize($row['survey_parms']);
 
@@ -805,6 +792,9 @@ if ($_POST['submit'])
 	require_once(FOOTERF);
 	exit;
 }
+
+
+e107::getSingleton('survey')->show_survey();
 
 show_survey($arg[0]);
 require_once(FOOTERF);

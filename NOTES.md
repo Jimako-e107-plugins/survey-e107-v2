@@ -4,7 +4,7 @@
 
 * removing message table and replaced it with normal textarea fields
 * slogan field used as summary
-
+* survey_neededpar ?? remove
 
 
 ### Done
