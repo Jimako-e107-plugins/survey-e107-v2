@@ -29,7 +29,7 @@ class survey_ui extends e_admin_ui
 	//	protected $sortParent      = 'somefield_parent';
 	//	protected $treePrefix      = 'somefield_title';
 
-	//	protected $tabs				= array('Tabl 1','Tab 2'); // Use 'tab'=>0  OR 'tab'=>1 in the $fields below to enable. 
+	protected $tabs				= array(LAN_PLUGIN_SURVEY, LAN_PLUGIN_MESSAGES);
 
 	//	protected $listQry      	= "SELECT * FROM `#tableName` WHERE field != '' "; // Example Custom Query. LEFT JOINS allowed. Should be without any Order or Limit.
 
@@ -85,19 +85,7 @@ class survey_ui extends e_admin_ui
 		//	  'survey_message' =>   array ( 'title' => ADLAN_SUR20, 'type' => 'textarea', 'data' => 'str', 'width' => 'auto', 
 		//		'help' => 'See old templating in readme file)', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
 
-		'survey_message1' =>   array(
-			'title' => ADLAN_SUR_MESSAGETOP, 'type' => 'textarea', 'data' => 'str', 'width' => 'auto',
-			'help' => ADLAN_SUR_MESSAGETOP_HELP, 'readParms' => '',
-			'writeParms' => array('size' => 'block-level'),  'class' => 'left', 'thclass' => 'left',
-		),
-		'survey_message2' =>   array(
-			'title' => ADLAN_SUR_MESSAGEBOT, 'type' => 'dropdown', 'data' => 'str', 'width' => 'auto',
-			'help' => ADLAN_SUR_MESSAGEBOT_HELP, 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',
-		),
-		'survey_error1' =>     array(
-			'title' => 'Wrong parameter message', 'type' => 'dropdown', 'data' => 'str', 'width' => 'auto',
-			'help' => ADLAN_SUR_MESSAGEBOT_HELP, 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',
-		),
+
 
 		'survey_neededpar' =>   array(
 			'title' => 'Needed Param in URL', 'type' => 'boolean', 'data' => 'str', 'width' => 'auto',
@@ -117,6 +105,19 @@ class survey_ui extends e_admin_ui
 			'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',
 		),
 
+		'survey_message1' =>   array(
+			'title' => ADLAN_SUR_MESSAGETOP, 'type' => 'textarea', 'data' => 'str', 'width' => 'auto', 'tab' => 1,
+			'help' => ADLAN_SUR_MESSAGETOP_HELP, 'readParms' => '',
+			'writeParms' => array('size' => 'block-level'),  'class' => 'left', 'thclass' => 'left',
+		),
+		'survey_message2' =>   array(
+			'title' => ADLAN_SUR_MESSAGEBOT, 'type' => 'textarea', 'data' => 'str', 'width' => 'auto',  'tab' => 1,
+			'help' => ADLAN_SUR_MESSAGEBOT_HELP, 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',
+		),
+		'survey_error1' =>     array(
+			'title' => 'Wrong parameter message', 'type' => 'textarea', 'data' => 'str', 'width' => 'auto',  'tab' => 1,
+			'help' => ADLAN_SUR_MESSAGEBOT_HELP, 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',
+		),
 
 
 		'options' =>   array('title' => LAN_OPTIONS, 'type' => null, 'data' => null, 'width' => '10%', 'thclass' => 'center last', 'class' => 'center last', 'forced' => '1',),
@@ -189,7 +190,6 @@ class survey_ui extends e_admin_ui
 	{
 		// do something		
 	}
- 
 }
 
 

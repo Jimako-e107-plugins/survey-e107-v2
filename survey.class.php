@@ -68,12 +68,22 @@ class survey
 		//print_a(survey::$survey_data);
 
 		$ret = '';
-		$snum = intval($snum);
+		$snum = survey::$survey_id;
 
 		if (survey::$survey_id > 0)
 		{
 			$title = survey::$survey_data['survey_name'];
-			$surveytemplate = varset(survey::$survey_data['survey_template']  , "view" );
+			$tpl_key = varset(survey::$survey_data['survey_template']  , "view" );
+			$surveytemplate = survey::$template[$tpl_key];
+	 
+
+			$sc = e107::getScBatch('survey', true);
+
+			$ret = e107::getParser()->parseTemplate($surveytemplate['start'], true, $sc);
+
+			$ret .= show_survey($snum, true);
+
+			$ret .= e107::getParser()->parseTemplate($surveytemplate['end'], true, $sc); 
 
 			e107::getRender()->tablerender($title, $ret, 'survey');
 

@@ -248,7 +248,7 @@ function isImage($url)
 	return false;
 }
 
-function show_survey($snum)
+function show_survey($snum = NULL, $return = false)
 {
 	global   $tell_required, $_res, $fdata, $survey_class, $tp, $translated_strings;
 
@@ -278,31 +278,7 @@ function show_survey($snum)
 
 		$fdata = unserialize($row['survey_parms']);
 
-		if (deftrue('BOOTSTRAP'))
-		{
-			// you can use in message1 any global shortcode (from other plugins too)
-			// only for new themes
-
-			if ($row['survey_message1'])
-			{
-				$MESSAGE_TOP = $template[$surveytemplate]['start'];
-				$where = 'message_id ="' . intval($row['survey_message1']) . '"';
-				if ($messagetop = e107::getDb()->retrieve('survey_messages', 'message_text', $where))
-				{
-					$var = array(
-						'SLOGAN' => $tp->parseTemplate($tp->toHTML($row['survey_slogan'], false, 'TITLE')),
-						'MESSAGE_TOP' => $tp->parseTemplate($tp->toHTML($messagetop, false, 'TITLE'))
-					);
-
-					$ret .= $tp->simpleParse($MESSAGE_TOP, $var);
-				}
-			}
-			$ret .= "<div class='survey'>";
-		}
-		else
-		{
-			$ret .= "<table style='width:96%'  >";
-		}
+	 
 
 
 		$frm = new myform;
@@ -515,7 +491,8 @@ function show_survey($snum)
 	}
 	//  $title = $tp->lanVars($tp->toHTML($row['survey_name']));
 
-
+	if ($return) return $ret;
+	
 	e107::getRender()->tablerender($title, $ret, 'survey');
 }
 
@@ -796,5 +773,5 @@ if ($_POST['submit'])
 
 e107::getSingleton('survey')->show_survey();
 
-show_survey($arg[0]);
+//show_survey($arg[0]);
 require_once(FOOTERF);

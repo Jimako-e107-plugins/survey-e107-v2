@@ -10,5 +10,5 @@
  
 define("LAN_PLUGIN_SURVEY_NAME",		"Surveys");
 define("LAN_PLUGIN_SURVEY_DESCRIPTION", "Add surveys to your e107 website");
-
-?>
+define("LAN_PLUGIN_SURVEY",		"Survey");
+define("LAN_PLUGIN_MESSAGES",		"Messages");
