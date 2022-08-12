@@ -25,6 +25,7 @@ e107::lan('survey',true, true);
 
 
   'main/list' => array('caption'=> ADLAN_SUR_MAINCONF, 'perm' => 'P'),
+	'main/create' => array('caption' => LAN_PLUGIN_ADD_SURVEY, 'perm' => 'P'),
   'surveys' => array('caption'=> 'Surveys', 'perm' => 'P', 'uri'=>'admin_configv1.php'  ),
  
   );
