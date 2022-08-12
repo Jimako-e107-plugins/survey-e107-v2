@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e107Plugin name="Survey" lan="LAN_PLUGIN_SURVEY_NAME" version="2.0" date="2017-05-25" compatibility="2.0" installRequired="true" >
-	<author name="in development" url="in development" />
+	<author name="Jimako" url="in development" />
 	<summary lan="">This plugin is designed to allow the site admin to configure surveys for their site.</summary>
 	<description lan="">This plugin is designed to allow the site admin to configure surveys for his / her site.</description>
 	<keywords>

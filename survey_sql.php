@@ -16,12 +16,12 @@ survey_submit_message text NOT NULL,
 survey_lastfnum int(10) unsigned NOT NULL default '0',
 survey_url varchar(255) NOT NULL default '',
 survey_template varchar(255) NOT NULL default '',
-survey_message1 tinyint(3) unsigned NOT NULL default '0',
-survey_message2 tinyint(3) unsigned NOT NULL default '0',
-survey_error1   tinyint(3) unsigned NOT NULL default '0',
+survey_message1 text NOT NULL,
+survey_message2 text NOT NULL,
+survey_error1 text NOT NULL,
 survey_slogan text NOT NULL,
-survey_neededpar tinyint(1) NOT NULL DEFAULT '0',
-PRIMARY KEY  (survey_id)
+survey_neededpar tinyint(1) NOT NULL DEFAULT '0',lastfnum
+PRIMARY KEY (survey_id)
 ) ENGINE=MyISAM;
 
 CREATE TABLE survey_results (
@@ -29,13 +29,12 @@ results_id int(10) unsigned NOT NULL auto_increment,
 results_datestamp int(10) unsigned NOT NULL default '0',
 results_survey_id int(10) unsigned NOT NULL default '0',
 results_results text,
-PRIMARY KEY  (results_id)
+PRIMARY KEY (results_id)
 ) ENGINE=MyISAM;
 
 CREATE TABLE survey_messages (
 message_id int(10) unsigned NOT NULL auto_increment,
 message_shortcut varchar(255) NOT NULL default '',
 message_text text NOT NULL,
-PRIMARY KEY  (message_id)
+PRIMARY KEY (message_id)
 ) ENGINE=MyISAM;
-

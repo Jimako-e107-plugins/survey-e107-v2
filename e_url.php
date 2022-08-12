@@ -24,9 +24,7 @@ class survey_url // plugin-folder + '_url'
 	function config() 
 	{
 		$config = array();
-
- 
- 
+  
 	// site/survey/survey-sef/custom-id/custom-id-2/
 	$config['survey3'] = array(		
 	      'alias'   => 'survey', 

@@ -14,11 +14,43 @@ if (!defined('e107_INIT'))
 }
 
 require_once(e_HANDLER . "userclass_class.php");
-//require_once(e_HANDLER."np_class.php");
+//require_once(e_HANDLER."np_class.php"); fix me
 require_once(e_PLUGIN . "survey/survey.inc.php");
 e107::plugLan('survey', e_LANGUAGE . '_front');
 
-global $survey_fields, $translated_strings;
+$tp = e107::getParser();
+
+$survey_class = e107::getSingleton('survey', e_PLUGIN . 'survey/survey.class.php');
+
+$tmp = explode(".", e_QUERY);   // $tmp, because $qs is used
+
+$survey_data = array();
+
+if ($tmp[0])
+{
+	if (is_numeric($tmp[0]))  // legacy url
+	{
+		$survey_id = $tmp[0];
+		$survey_data =  $survey_class->get_data_by_id($survey_id);
+	}
+	else
+	{
+		$survey_url = $tmp[0];	 // At least one parameter here
+		$survey_data =  $survey_class->get_data_by_url($survey_url);
+	}
+}
+else
+{
+	$survey_data['survey_name'] = LAN_PLUGIN_SURVEY_NAME;
+	$survey_data['survey_slogan'] = SITEDESCRIPTION;
+}
+
+$survey_class->set_meta_tags($survey_data);
+
+
+
+/* OLD CODE */
+global $survey_fields, $translated_strings;  //fix me
 
 $translated_strings = array(
 	'LAN_SUR_NAME_01' => LAN_SUR_NAME_01,
@@ -33,29 +65,11 @@ $translated_strings = array(
 	'LAN_SUR_A_03' => LAN_SUR_A_03,
 	'LAN_SUR_A_04' => LAN_SUR_A_04,
 	'LAN_SUR_A_05' => LAN_SUR_A_05,
-	'LAN_SUR_SLOGAN' => LAN_SUR_SLOGAN,
+	'LAN_SUR_SUMMARY' => LAN_SUR_SUMMARY,
 );
 
-$tmp = explode(".", e_QUERY);   // $tmp, because $qs is used
 
-if (is_numeric($tmp[0]))  // legacy url
-{
-	define('e_PAGETITLE', 'Surveys');
-}
-else
-{
-	$tp = e107::getParser();
-	$survey_url = $tmp[0];	 // At least one parameter here
-	$where = 'survey_url ="' . $survey_url . '"';
-	$pagetitle =   e107::getDB()->retrieve('survey', 'survey_slogan', $where);
-	$pagetitle = $tp->simpleParse($pagetitle, $translated_strings);
-	$pagetitle =   $tp->toText($pagetitle, false, 'TITLE');
-
-
-	define('e_PAGETITLE', $pagetitle);
-}
-
-
+ 
 function np($url, $from, $view, $total, $td, $qs = "")
 {
 	/*
@@ -145,9 +159,7 @@ function already_voted($userlist)
 
 require_once(HEADERF);
 $arg = explode(".", e_QUERY);
-
-
-
+ 
 if (e_QUERY)
 {
 	$tmp = explode(".", e_QUERY);   // $tmp, because $qs is used
@@ -238,21 +250,19 @@ function isImage($url)
 
 function show_survey($snum)
 {
-	global $sql, $ns, $tell_required, $_res, $fdata, $survey_class, $tp, $translated_strings;
+	global   $tell_required, $_res, $fdata, $survey_class, $tp, $translated_strings;
 
 	$ret = '';
 	$snum = intval($snum);
-	$sql->select("survey", "*", "survey_id='{$snum}' ");
+	e107::getDb()->select("survey", "*", "survey_id='{$snum}' ");
 	$template   = e107::getTemplate('survey');
-
-	if ($row = $sql->fetch())
+ 
+	if ($row = e107::getDb()->fetch())
 	{
 
 		// replace LAN strings	  
 		$title = $tp->simpleParse($row['survey_name'], $translated_strings);
 		$row['survey_slogan'] = $tp->simpleParse($row['survey_slogan'], $translated_strings);
-
-
 
 		// set correct template, for errors too
 		$surveytemplate = 'view';
@@ -267,14 +277,14 @@ function show_survey($snum)
 		//		extract($row);
 		if (!check_class($row['survey_class']))
 		{
-			$ns->tablerender("Error - {$row['survey_name']}", LAN_SUR6);
+			e107::getRender()->tablerender("Error - {$row['survey_name']}", LAN_SUR6);
 			return;
 		}
 		if ($row['survey_class'] != e_UC_PUBLIC && $row['survey_once'])
 		{
 			if (already_voted($row['survey_user']))
 			{
-				$ns->tablerender("Error - {$row['survey_name']}", LAN_SUR2);
+				e107::getRender()->tablerender("Error - {$row['survey_name']}", LAN_SUR2);
 				return;
 			}
 		}
@@ -290,7 +300,7 @@ function show_survey($snum)
 			{
 				$MESSAGE_TOP = $template[$surveytemplate]['start'];
 				$where = 'message_id ="' . intval($row['survey_message1']) . '"';
-				if ($messagetop = $sql->retrieve('survey_messages', 'message_text', $where))
+				if ($messagetop = e107::getDb()->retrieve('survey_messages', 'message_text', $where))
 				{
 					$var = array(
 						'SLOGAN' => $tp->parseTemplate($tp->toHTML($row['survey_slogan'], false, 'TITLE')),
@@ -498,7 +508,7 @@ function show_survey($snum)
 
 			$MESSAGE_BOTTOM = $template[$surveytemplate]['end'];
 			$where = 'message_id ="' . intval($row['survey_message2']) . '"';
-			if ($messagebottom = $sql->retrieve('survey_messages', 'message_text', $where))
+			if ($messagebottom = e107::getDb()->retrieve('survey_messages', 'message_text', $where))
 			{
 				$var = array(
 					'MESSAGE_BOTTOM' => $tp->parseTemplate($tp->toHTML($messagebottom, false, 'TITLE'))
@@ -519,7 +529,7 @@ function show_survey($snum)
 	//  $title = $tp->lanVars($tp->toHTML($row['survey_name']));
 
 
-	$ns->tablerender($title, $ret, 'survey');
+	e107::getRender()->tablerender($title, $ret, 'survey');
 }
 
 if ($_POST['submit'])

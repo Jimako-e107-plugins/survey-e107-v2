@@ -63,5 +63,5 @@ define("LAN_SUR_A_03","Bolo to v poriadku");
 define("LAN_SUR_A_04","Skôr nespokojný");
 define("LAN_SUR_A_05","Som nespokojný");
 
-define("LAN_SUR_SLOGAN","Vaša spätná väzba je pre nás dôležitá – umožňuje nám neustále sa zlepšovať a byť <span>pre našich kandidátov </span>lepším partnerom.");
+define("LAN_SUR_SUMMARY","Vaša spätná väzba je pre nás dôležitá – umožňuje nám neustále sa zlepšovať a byť <span>pre našich kandidátov </span>lepším partnerom.");
  

@@ -19,18 +19,10 @@ if(e_ADMIN_AREA === true)
 }
 else {
 
-	$event = e107::getEvent();
-	$event->register('survey', 'displayed');
-	$event->register('survey', 'submitted');
+	//$event = e107::getEvent();
+	//$event->register('survey', 'displayed');
+	//$event->register('survey', 'submitted');
 }
+
 
  
-function displayed($data = array()) {
-	
-	
-}
-
-function submitted($data = array()) {
-	
-	
-}
