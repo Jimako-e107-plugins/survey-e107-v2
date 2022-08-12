@@ -29,7 +29,7 @@ class survey_ui extends e_admin_ui
 	//	protected $sortParent      = 'somefield_parent';
 	//	protected $treePrefix      = 'somefield_title';
 
-	protected $tabs				= array(LAN_PLUGIN_SURVEY, LAN_PLUGIN_MESSAGES);
+	protected $tabs				= array(LAN_PLUGIN_SURVEY, LAN_PLUGIN_MESSAGES, LAN_PLUGIN_FIELDS);
 
 	//	protected $listQry      	= "SELECT * FROM `#tableName` WHERE field != '' "; // Example Custom Query. LEFT JOINS allowed. Should be without any Order or Limit.
 
@@ -43,9 +43,8 @@ class survey_ui extends e_admin_ui
 			'readParms' => '', 'writeParms' => array('size' => 'xxlarge'), 'class' => 'left', 'thclass' => 'left',
 		),
 
-
 		'survey_name' =>   array(
-			'title' => LAN_TITLE, 'type' => 'text', 'data' => 'str', 'width' => 'auto', 'inline' => true, 'help' => '',
+			'title' => ADLAN_SUR10, 'type' => 'text', 'data' => 'str', 'width' => 'auto', 'inline' => true, 'help' => '',
 			'readParms' => '', 'writeParms' => array('size' => 'xxlarge'), 'class' => 'left', 'thclass' => 'left',
 		),
 
@@ -56,21 +55,20 @@ class survey_ui extends e_admin_ui
 		),
 
 		'survey_mailto' =>   array(
-			'title' => 'Email to', 'type' => 'text', 'data' => 'str', 'width' => 'auto', 'inline' => true, 'help' => '',
+			'title' => ADLAN_SUR15, 'type' => 'text', 'data' => 'str', 'width' => 'auto', 'inline' => true, 'help' => '',
 			'readParms' => '', 'writeParms' => array('size' => 'xxlarge'), 'class' => 'left', 'thclass' => 'left',
 		),
 
+		'survey_once' =>   array('title' => ADLAN_SUR12, 'type' => 'boolean', 'data' => 'int', 'width' => 'auto', 
+		'help' => '', 'readParms' => '', 'writeParms' => 'label=yesno', 'class' => 'left', 'thclass' => 'left',),
+
+		'survey_save_results' =>   array('title' => ADLAN_SUR17, 'type' => 'boolean', 'data' => 'int', 'width' => 'auto', 'help' => '',
+		 'readParms' => '', 'writeParms' => 'label=yesno',  'class' => 'left', 'thclass' => 'left',),
+
+
 		/*  'survey_class' =>   array ( 'title' => LAN_USERCLASS, 'type' => 'userclass', 'data' => 'int', 'width' => 'auto', 'batch' => true, 'filter' => true, 'inline' => true, 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
-		  'survey_once' =>   array ( 'title' => 'Once', 'type' => 'boolean', 'data' => 'int', 'width' => 'auto', 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
-		  'survey_viewclass' =>   array ( 'title' => 'Viewclass', 'type' => 'boolean', 'data' => 'int', 'width' => 'auto', 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
-		  'survey_editclass' =>   array ( 'title' => 'Editclass', 'type' => 'boolean', 'data' => 'int', 'width' => 'auto', 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
-		  'survey_mailto' =>   array ( 'title' => 'Mailto', 'type' => 'email', 'data' => 'str', 'width' => 'auto', 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
-		  'survey_forum' =>   array ( 'title' => 'Forum', 'type' => 'boolean', 'data' => 'int', 'width' => 'auto', 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
-		  'survey_save_results' =>   array ( 'title' => 'Results', 'type' => 'boolean', 'data' => 'int', 'width' => 'auto', 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
-		  'survey_user' =>   array ( 'title' => LAN_AUTHOR, 'type' => 'textarea', 'data' => 'str', 'width' => 'auto', 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
+ 		  'survey_user' =>   array ( 'title' => LAN_AUTHOR, 'type' => 'textarea', 'data' => 'str', 'width' => 'auto', 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
 		  'survey_parms' =>   array ( 'title' => 'Parms', 'type' => 'textarea', 'data' => 'str', 'width' => 'auto', 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
-		  'survey_message' =>   array ( 'title' => 'Message', 'type' => 'bbarea', 'data' => 'str', 'width' => 'auto', 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
-		  'survey_submit_message' =>   array ( 'title' => 'Message', 'type' => 'bbarea', 'data' => 'str', 'width' => 'auto', 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
 		  'survey_lastfnum' =>   array ( 'title' => 'Lastfnum', 'type' => 'number', 'data' => 'int', 'width' => 'auto', 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
 		 */
 		'survey_url' => array(
@@ -95,7 +93,7 @@ class survey_ui extends e_admin_ui
 
 
 		'survey_class'		=>   array(
-			'title' => LAN_VISIBILITY,	'type' => 'userclass', 'data' => 'int', 'inline' => true,
+			'title' => ADLAN_SUR11,	'type' => 'userclass', 'data' => 'int', 'inline' => true,
 			'batch' => true, 'filter' => true, 'width' => 'auto', 'help' => ADLAN_SUR11,
 			'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left'
 		),
@@ -105,6 +103,20 @@ class survey_ui extends e_admin_ui
 			'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',
 		),
 
+		'survey_editclass'		=>   array(
+			'title' => ADLAN_SUR68,	'type' => 'userclass', 'data' => 'int', 'inline' => true, 'batch' => true, 'filter' => true, 'width' => 'auto', 'help' => '',
+			'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',
+		),
+
+		'survey_forum' =>   array('title' => ADLAN_SUR16, 'type' => 'dropdown', 'data' => 'int', 'width' => 'auto', 
+		'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',),
+
+		'survey_message' =>   array(
+			'title' => ADLAN_SUR20, 'type' => 'textarea', 'data' => 'str', 'width' => 'auto', 'tab' => 1,
+			'help' => ADLAN_SUR20_HELP, 'readParms' => '',
+			'writeParms' => array('size' => 'block-level'),  'class' => 'left', 'thclass' => 'left',
+		),
+		
 		'survey_message1' =>   array(
 			'title' => ADLAN_SUR_MESSAGETOP, 'type' => 'textarea', 'data' => 'str', 'width' => 'auto', 'tab' => 1,
 			'help' => ADLAN_SUR_MESSAGETOP_HELP, 'readParms' => '',
@@ -114,6 +126,10 @@ class survey_ui extends e_admin_ui
 			'title' => ADLAN_SUR_MESSAGEBOT, 'type' => 'textarea', 'data' => 'str', 'width' => 'auto',  'tab' => 1,
 			'help' => ADLAN_SUR_MESSAGEBOT_HELP, 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',
 		),
+		'survey_submit_message' =>   array(
+			'title' => ADLAN_SUR21, 'type' => 'textarea', 'data' => 'str', 'width' => 'auto',  'tab' => 1,
+			'help' => ADLAN_SUR21_HELP, 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',
+		),		
 		'survey_error1' =>     array(
 			'title' => 'Wrong parameter message', 'type' => 'textarea', 'data' => 'str', 'width' => 'auto',  'tab' => 1,
 			'help' => ADLAN_SUR_MESSAGEBOT_HELP, 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',
@@ -139,6 +155,16 @@ class survey_ui extends e_admin_ui
 		// Set drop-down values (if any). 
 		$templates = e107::getLayouts('survey', 'survey', 'front', null, false, false);
 		$this->fields['survey_template']['writeParms'] = $templates;
+
+		//not finished
+		$rows  = e107::getDb()->retrieve("forum", "*", "forum_parent != 0", true);  
+		foreach($rows AS $row) {
+			$forumList[$row['forum_id']] = $row['forum_name'];
+		}
+
+
+
+
  
 	}
 
@@ -147,6 +173,10 @@ class survey_ui extends e_admin_ui
 
 	public function beforeCreate($new_data, $old_data)
 	{
+		if ($new_data['survey_once'] && $new_data['survey_class'] != e_UC_PUBLIC)
+		{
+			$new_data['survey_save_results'] = 1;
+		}
 		return $new_data;
 	}
 
@@ -165,6 +195,11 @@ class survey_ui extends e_admin_ui
 
 	public function beforeUpdate($new_data, $old_data, $id)
 	{
+		if ($new_data['survey_once'] && $new_data['survey_class'] != e_UC_PUBLIC)
+		{
+			$new_data['survey_save_results'] = 1;
+		}
+
 		return $new_data;
 	}
 
