@@ -8,5 +8,5 @@
 
 
 *Done
-*UPDATED {LAN} shortcode support for those fields
-*UPDATED pagetitle, metas, added meta description
+* UPDATED {LAN} shortcode support for those fields
+* UPDATED pagetitle, metas, added meta description
