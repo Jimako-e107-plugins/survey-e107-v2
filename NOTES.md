@@ -1,5 +1,5 @@
 
-*Changes in process
+###Changes in process
 
 
 * removing message table and replaced it with normal textarea fields
@@ -7,6 +7,6 @@
 
 
 
-*Done
+###Done
 * UPDATED {LAN} shortcode support for those fields
 * UPDATED pagetitle, metas, added meta description
