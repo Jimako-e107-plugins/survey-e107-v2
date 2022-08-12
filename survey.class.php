@@ -21,6 +21,8 @@ class survey
 
 			$data['survey_name'] = $this->parse_lans($data['survey_name']);
 			$data['survey_slogan'] = $this->parse_lans($data['survey_slogan']);
+			$data['survey_message1'] = $this->parse_lans($data['survey_message1']);
+			$data['survey_message2'] = $this->parse_lans($data['survey_message2']);
 
 			survey::$survey_id = $data['survey_id'];
 			survey::$survey_data = $data;
@@ -37,6 +39,8 @@ class survey
 			$data = e107::getDB()->retrieve('survey', "*", $where);
 			$data['survey_name'] = $this->parse_lans($data['survey_name']);
 			$data['survey_slogan'] = $this->parse_lans($data['survey_slogan']);
+			$data['survey_message1'] = $this->parse_lans($data['survey_message1']);
+			$data['survey_message2'] = $this->parse_lans($data['survey_message2']);
 
 			survey::$survey_id = $data['survey_id'];
 			survey::$survey_data = $data;
@@ -75,9 +79,8 @@ class survey
 			$title = survey::$survey_data['survey_name'];
 			$tpl_key = varset(survey::$survey_data['survey_template']  , "view" );
 			$surveytemplate = survey::$template[$tpl_key];
-	 
-
-			$sc = e107::getScBatch('survey', true);
+ 
+			$sc = e107::getScBatch('survey', true)->setVars(survey::$survey_data);
 
 			$ret = e107::getParser()->parseTemplate($surveytemplate['start'], true, $sc);
 

@@ -466,18 +466,7 @@ function show_survey($snum = NULL, $return = false)
 		if (deftrue('BOOTSTRAP'))
 		{
 			$ret .= "</div>";
-			// you can use in message1 any global shortcode (from other plugins too)
-			// only for new themes
-
-			$MESSAGE_BOTTOM = $template[$surveytemplate]['end'];
-			$where = 'message_id ="' . intval($row['survey_message2']) . '"';
-			if ($messagebottom = e107::getDb()->retrieve('survey_messages', 'message_text', $where))
-			{
-				$var = array(
-					'MESSAGE_BOTTOM' => $tp->parseTemplate($tp->toHTML($messagebottom, false, 'TITLE'))
-				);
-				$ret .= $tp->simpleParse($MESSAGE_BOTTOM, $var);
-			}
+			 
 		}
 		else
 		{
@@ -492,7 +481,7 @@ function show_survey($snum = NULL, $return = false)
 	//  $title = $tp->lanVars($tp->toHTML($row['survey_name']));
 
 	if ($return) return $ret;
-	
+
 	e107::getRender()->tablerender($title, $ret, 'survey');
 }
 
@@ -663,7 +652,8 @@ if ($_POST['submit'])
 
 	if ($reshow)
 	{
-		show_survey($_POST['survey_id']);
+		//show_survey($_POST['survey_id']);
+		e107::getSingleton('survey')->show_survey();
 		require_once(FOOTERF);
 		exit;
 	}

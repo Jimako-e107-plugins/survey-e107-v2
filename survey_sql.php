@@ -31,10 +31,4 @@ results_survey_id int(10) unsigned NOT NULL default '0',
 results_results text,
 PRIMARY KEY (results_id)
 ) ENGINE=MyISAM;
-
-CREATE TABLE survey_messages (
-message_id int(10) unsigned NOT NULL auto_increment,
-message_shortcut varchar(255) NOT NULL default '',
-message_text text NOT NULL,
-PRIMARY KEY (message_id)
-) ENGINE=MyISAM;
+ 

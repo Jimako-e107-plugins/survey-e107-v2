@@ -16,12 +16,7 @@ e107::lan('survey',true, true);
   'uipath' => null
   ),
 
-  'message' => array(
-  'controller' => 'survey_messages_ui',
-  'path' => null,
-  'ui' => 'survey_messages_form_ui',
-  'uipath' => null
-  ),
+ 
 
   );
 
@@ -31,13 +26,12 @@ e107::lan('survey',true, true);
 
   'main/list' => array('caption'=> ADLAN_SUR_MAINCONF, 'perm' => 'P'),
   'surveys' => array('caption'=> 'Surveys', 'perm' => 'P', 'uri'=>'admin_configv1.php'  ),
-  'message/list' => array('caption'=> 'Defined messages', 'perm' => 'P'),
-  'message/create' => array('caption'=> 'Add message', 'perm' => 'P'),
+ 
   );
 
   protected $adminMenuAliases = array(
   'main/edit' => 'main/list',
-  'message/edit' => 'message/list'
+ 
   );
 
   protected $menuTitle = 'Survey';

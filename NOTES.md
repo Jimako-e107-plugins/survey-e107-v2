@@ -10,3 +10,4 @@
 ### Done
 * UPDATED {LAN} shortcode support for those fields
 * UPDATED pagetitle, metas, added meta description
+* DELETED survey messages table and replaced it with textarea fields
