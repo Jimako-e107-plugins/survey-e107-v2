@@ -54,10 +54,10 @@ define("ADLAN_SUR35","Check to make a field hidden");
 define("ADLAN_SUR36","Will perform any mathmatical operation on numeric fields.  Substitute {x} for any field number.  IE  (27+{1})*5");
 define("ADLAN_SUR37","use dmy to have date represented as dd/mm/yyyy, otherwise defaults to mm/dd/yyyy.");
 
-define("ADLAN_SUR40","The name displayed in the table title.");
+define("ADLAN_SUR40", "The name displayed in the table title. Used for meta title too.");
 define("ADLAN_SUR41","Visible to:");
 define("ADLAN_SUR42","Who can view the survey's statistical data.");
-define("ADLAN_SUR43","Results of each survey will be email to the list of addresses here.  Separate addressees with a comma.");
+define("ADLAN_SUR43","Results of each survey will be email to the list of addresses here.  Separate addressees with a tilda.");
 define("ADLAN_SUR44","Save Results:");
 define("ADLAN_SUR45","Do you want the results to be save in the db so statistical data can be produced?");
 define("ADLAN_SUR46","Survey Message:");
@@ -69,23 +69,24 @@ define("ADLAN_SUR51","Question asked.");
 define("ADLAN_SUR52","R:");
 define("ADLAN_SUR53","Check to make field required.");
 define("ADLAN_SUR54","What type of a user response will be asked for.<br /><br />The exception is the 'seperator' type.  This is used to add some text between the fields. For question category seperation for example.  The question field can be any text with full bbcode support.  You can use the parameter of 'menu' to enclose this in a menu style table.");
-define("ADLAN_SUR55","All parameters should be separated by commas, here is what the parameters will be:");
+define("ADLAN_SUR55", "All parameters should be separated by tildas, here is what the parameters will be:");
 define("ADLAN_SUR56","Text:");
 define("ADLAN_SUR57","length of textbox, maxlength allowed");
 define("ADLAN_SUR58","textarea:");
 define("ADLAN_SUR59"," # of cols, # of rows");
 define("ADLAN_SUR60","checkbox:");
-define("ADLAN_SUR61","Options separated by commas");
+define("ADLAN_SUR61", "Options separated by tildas");
 define("ADLAN_SUR62","radio:");
 define("ADLAN_SUR63","dropdown:");
 define("ADLAN_SUR65","Survey Help");
 define("ADLAN_SUR66","Field");
 define("ADLAN_SUR67","Settings");
 define("ADLAN_SUR68","Able to edit results");
-define("ADLAN_SUR69","Click to Show main survey config");
-define("ADLAN_SUR70","Create copy of existing survey");
-define("ADLAN_SUR71","Create");
-define("ADLAN_SUR72","Survey created");
+define("ADLAN_SUR69","Short description of survey. Used for meta description too.");
+define("ADLAN_SUR70","Shortcode, key to identify survey by text (not sef-url)");
+define("ADLAN_SUR71"," ");
+define("ADLAN_SUR72"," ");
+define("ADLAN_SUR73", "H");
 
 define("ADLAN_SUR_MAINCONF","Main survey config");
 define("ADLAN_SUR_MESSAGETOP","Survey message 1 (top)");
@@ -93,4 +94,15 @@ define("ADLAN_SUR_MESSAGETOP_HELP","Appears above the survey when shown to users
 define("ADLAN_SUR_MESSAGEBOT","Survey message 2 (bottom)");
 define("ADLAN_SUR_MESSAGEBOT_HELP","Appears above the survey when shown to users. If you want to more styling, prepare custom menu and use shortcode {CMENU}");
 
-?>
+define("ADLAN_SUR_FORDER", "Order");
+  
+define("ADLAN_SUR_FHIDDEN", "Hidden");
+define("ADLAN_SUR_FTYPE", "Type");
+define("ADLAN_SUR_FPARMS", "Parameters");
+define("ADLAN_SUR_FHELP_USERCLASS", "Userclass");
+define("ADLAN_SUR_FHELP_TEXT", "Help Text");
+define("ADLAN_SUR_FNEW", "New");
+define("ADLAN_SUR_SAVEBTN", "Save Form Fields");
+define("ADLAN_SUR_SAVEFIRST", "Please Save the Survey Settings first, You will not be able to add form fields untill this is done");
+
+ 

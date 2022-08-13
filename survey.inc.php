@@ -59,7 +59,7 @@ function show_form_field($field)
 
 		case 3:  //checkbox
 			$options = explode("~", $field['field_choices']);
-			$checked_vals = unserialize($_res[$fn]);
+			$checked_vals = e107::unserialize($_res[$fn]);
 			foreach ($checked_vals as $k => $v)
 			{
 				$checked_vals[$k] = trim($v);
@@ -68,6 +68,7 @@ function show_form_field($field)
 			{
 				$ret .= '<div class="checkbox">';
 			}
+			 
 			foreach ($options as $o)
 			{
 				$o = $tp->simpleParse($o, $translated_strings);

@@ -259,7 +259,7 @@ function show_survey($snum = NULL, $return = false)
  
 	if ($row = e107::getDb()->fetch())
 	{
-
+ 
 		// replace LAN strings	  
 		$title = '';
 		$row['survey_slogan'] = $tp->simpleParse($row['survey_slogan'], $translated_strings);
@@ -273,14 +273,9 @@ function show_survey($snum = NULL, $return = false)
 
 		$array = ['survey_neededpar' => $row['survey_neededpar']];
 		$data = e107::getEvent()->trigger('survey_displayed', $array);
-
-	 
-
-		$fdata = unserialize($row['survey_parms']);
-
-	 
-
-
+ 
+		$fdata = e107::unserialize($row['survey_parms']);
+  
 		$frm = new myform;
 		$ret .= $frm->form_open("post", e_SELF);
 		$ret .= $frm->form_hidden("survey_id", $row['survey_id']);

@@ -31,10 +31,5 @@ if(USER_AREA)
   
 	
 }
-
-if(ADMIN_AREA)
-{
-	e107::js('survey','js/survey.min.js');
-}
  
  
